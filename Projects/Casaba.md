@@ -42,16 +42,6 @@ pom 全称 `project object model`
 
 
 
-> **MyBatis 如何实现分页查询**
-
-① 直接实现
-
-② 使用插件，底层也是调用的 limit
-
-[SpringBoot整合Mybatis完整详细版](https://blog.csdn.net/iku5200/article/details/82856621)
-
-
-
 > **为什么要把DAO作为接口，再用impl类实现？**
 
 解耦，便于后期维护。软件上线之后，如果需要改变一些功能，只需改实现类中代码（即只需改包下面的代码）
@@ -86,29 +76,35 @@ pom 全称 `project object model`
 
 [如何实现一个权限管理系统?](https://www.jianshu.com/p/50fc0427689d)
 
-### 序言
-
 `系统安全`一直是在系统开发中不可规避的问题，而`权限控制`又跟系统安全密不可分，大到用户的访问，小到一个页面的按钮，都有可能涉及到权限的控制。
 
-> **前端实现**
+
+
+### 前端实现
 
 Mango采用前后端分离架构，前端采用`Vue.js`作为核心框架，并使用同样非常流行的`Element`作为UI框架。前端开发基于`NPM`环境，使用`Visual Studio Code`作为IDE编写代码。
 
 前端使用`Mock`可以模拟后台接口数据，可以在没有后台的情况下使用大部分功能，所以也适合不会部署后端的开发人员学习和使用。
 
-> **后端实现**
+
+
+### 后端实现
 
 后端则采用`SpringBoot + Spring Security + Spring Cloud + MyBatis`的主体架构，基于Java环境采用`IntelliJ IDEA`开发，使用`Maven`工具构建，支持使用`Swagger`进行后台接口测试。
 
 总而言之，Casaba 是一个基于SpringBoot、Spring Cloud、Vue.js 、Element UI实现，采用前后端分离架构的权限管理系统，也是一款采用当前主流技术实现的界面优雅、架构优良、代码简洁、注释完善、基础功能相对完整的Java快速开发平台。
 
-> **涉及技术**
+
+
+### 涉及技术
 
 Vue.js、Element、Mock
 
 Spring Boot、MyBatis、Spring Security、Spring Cloud
 
-> **系统功能**
+
+
+### 系统功能
 
 **系统登录**：系统用户登录，系统登录认证（token方式）。
 
@@ -152,7 +148,9 @@ Spring Boot、MyBatis、Spring Security、Spring Cloud
 
 **配置中心**：集成`Cloud Config`和`Bus`，实现分布式配置中心。
 
-> **系统架构**
+
+
+### 系统架构
 
 本系统采用前后端分离架构实现，前后端通过`JSON`格式进行交互，前后端皆可分开`独立部署`。
 
@@ -160,13 +158,13 @@ Spring Boot、MyBatis、Spring Security、Spring Cloud
 
 后台支持使用`Swagger`进行接口测试，同样可以避免对前端页面开发进度的依赖。
 
-**前端架构**
+> **前端架构**
 
 前端架构比较简单，核心框架使用当前主流的`Vue.js`，UI使用饿了么开源的`Element`，前后端交互使用了`axios`，使用`Mock`模拟接口数据。
 
 <img src="./image/前端架构.png" style="zoom:25%;" />
 
-**后端架构**
+> **后端架构**
 
 后端架构使用`Spring Boot + Spring Security + Spring Cloud + MyBatis`的主体架构，除此之外，选择`Consul`注册中心，使用`Maven`构建工具、`MySQL`数据库等。
 
@@ -174,7 +172,7 @@ Spring Boot、MyBatis、Spring Security、Spring Cloud
 
 
 
-> **项目模块**
+### 项目模块
 
 **casaba-common**：公共模块，以`jar`包的形式被其他模块所依赖。实现了一些`工具类`、`常量`和`公共功能`。包含时间处理、分页、Sql过滤、Xss过滤和Redis切面定义、自定义异常处理等功能。
 
@@ -185,129 +183,6 @@ Spring Boot、MyBatis、Spring Security、Spring Cloud
 **casaba-admin**：管理系统模块，以`war`包形式独立部署。基于前后端分离的思想，主要用来用来开发后台管理系统。包含用户管理、角色管理、部门管理、菜单管理、定时任务、文件上传、API校验，同时采用Redis进行数据缓存，支持单机和集群的部署。
 
 
-
-## mapper.xml->resources
-
-> **是否将 mapper.xml 放在 resources 下的区别**
-
-[利用Maven打包时，如何包含更多的资源文件](https://blog.csdn.net/jsflzhong/article/details/52077075)
-
-一般情况下，我们用到的资源文件（各种xml，properites，xsd文件等）都放在src/main/resources下面，利用maven打包时，maven能把这些资源文件打包到相应的jar或者war里。
-
-有时候，比如mybatis的mapper.xml文件，我们习惯把它和Mapper.java放一起，都在src/main/java下面，这样利用maven打包时，就需要修改pom.xml文件，来把mapper.xml文件一起打包进jar或者war里了，否则，这些文件不会被打包的。（maven认为src/main/java只是java的源代码路径）。
-
-
-
-## Druid & JDBC
-
-[JDBC与Druid简单介绍及Druid与MyBatis连接数据库](https://www.cnblogs.com/knowledgesea/p/11202918.html)
-
-引入com.microsoft.sqlserver.sqldjbc4依赖（由此依赖可以看出JDBC与druid的关系，druid是基于jdbc规范建立的上层应用）
-
-
-
-
-
-## ViewResolver
-
-[spring-springmvc-视图解析器](https://zhuanlan.zhihu.com/p/78922892)      [SpringMVC（五）视图和视图解析器](https://www.jianshu.com/p/fe4fb4f42ccc)
-
-
-
-## MyBatis->SQL
-
-> **MyBatis整合SQL有两种方式**：
-
-两种方式择其一即可！
-
-① **注解**
-
-dao文件夹中mapper下的的UserMapper接口
-
-```java
-public interface UserMapper {
-		@Select("SELECT * FROM User")
-    List<User> queryAllUsers();
-}
-```
-
-② **xml配置**
-
-resources文件夹下mapper下的UserMapper.xml配置文件
-
-```java
-<select id = "queryAllUsers" resultMap="UserInfoMap">
-    select * from User
-</select>
-```
-
-然后在 application.yml 中配置扫描路径
-
-```yml
-mybatis:
-  type-aliases-package: com.example.demo.dao.entity
-  mapper-locations: classpath:mapper/*.xml
-```
-
-其中 classpath 即 resources 编译后所放的位置
-
-
-
-## generator
-
-[mybatis 使用 generator 可以根据表结构自动生成实体类、配置文件和dao层代码](https://www.cnblogs.com/cc-robot/p/6371239.html)
-
-进入generator文件夹下：
-
-```shell
-cd /Users/superfarr/Documents/iCollections/casaba/generator
-```
-
-执行：
-
-```shell
-java -jar mybatis-generator-core-1.3.2.jar -configfile generator.xml -overwrite
-```
-
-本来以为用generator生成文件就万事大吉了，后来在调代码的过程中一直有个bug处理不了，经过排查发现是xxMapper.xml文件的问题，用generatorxxMapper.xml配置文件（尤其是xxMapper.xml文件！！）内容不一定是对，需要注意的有以下几点：
-
-① generator.xml配置文件中的生成**模型**等的包名和位置对应项目中的路径，不可随意填
-
-```xml
-javaModelGenerator targetPackage="com.hory.casaba.admin.dao.entity" 
-```
-
-② 注意看生成的xxMapper.xml中是否有列信息被漏掉
-
-③ 生成的xxMapper.xml中是否有相同的内容（我的就整整重合了好几倍的内容），SysUserMapper.xml一般是200行代码，后面全是重的！！
-
-
-
-
-
-## Starter
-
-`mybatis-spring-boot-starter` 就是`springboot + mybatis`完全注解不用任何配置文件。
-
-
-
-## CORS
-
-> 跨域解决方案笔记见笔记『ComputerNetwork』下 `跨域解决方案之 CORS`
-
-
-
-
-
-## Shiro
-
-[W3Cschool](https://www.w3cschool.cn/shiro/co4m1if2.html)
-
-
-
-## Consul
-
-常见的注册中心有`zookeeper 、eureka、consul、etcd`。
 
 
 
@@ -407,8 +282,6 @@ docker stop 容器id
 
 
 
-
-
 ## ELSE
 
 ### 什么是业务逻辑？
@@ -474,7 +347,17 @@ docker stop 容器id
 
 
 
+### CORS
 
+> 跨域解决方案笔记见笔记『ComputerNetwork』下 `跨域解决方案之 CORS`
+
+### Shiro
+
+[W3Cschool](https://www.w3cschool.cn/shiro/co4m1if2.html)
+
+### Consul
+
+常见的注册中心有`zookeeper 、eureka、consul、etcd`。
 
 
 
